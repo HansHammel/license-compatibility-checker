@@ -1,0 +1,46 @@
+{
+  "name": "license-compatibility-checker",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HansHammel/license-compatibility-checker.git"
+  },
+  "author": {
+    "name": "Oliver Bleckmann",
+    "url": "https://github.com/HansHammel"
+  },
+  "bugs": {
+    "url": "https://github.com/HansHammel/license-compatibility-checker/issues"
+  },
+  "homepage": "https://github.com/HansHammel/license-compatibility-checker#readme",
+  "bin": {
+    "license-compatibility-checker": "index.js",
+    "lcc": "index.js"
+  },
+  "keywords": [
+    "license",
+	"licenses",
+	"proliferation",
+	"compatibility",
+	"check",
+	"violation",
+	"validation",
+	"package.json",
+	"dependencies",
+	"modules",
+	"compliance",
+	"spdx"
+  ],
+  "license": "MIT",
+  "description": "Check npm dependencies' package.json for license compatibility (aka compliance check) based on spdx naming conventions.",
+  "dependencies": {
+    "spdx-correct": "^1.0.2"
+  },
+  "devDependencies": {
+    "svgo": "^0.7.1"
+  }
+}

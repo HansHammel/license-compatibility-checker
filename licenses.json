@@ -1,0 +1,56 @@
+{
+  "public_domain": [
+    "CC0-1.0",
+    "PDDL-1.0",
+    "SAX-PD",
+    "Unlicense"
+  ],
+  "permissive": [
+    "AFL-1.1",
+    "AFL-1.2",
+    "AFL-2.0",
+    "AFL-2.1",
+    "AFL-3.0",
+    "Apache-2.0",
+    "Artistic-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "BSD-3-Clause-Attribution",
+    "BSD-3-Clause-Clear",
+    "DSDP",
+    "ECL-2.0",
+    "ISC",
+    "MIT",
+	"X11",
+    "WTFPL"
+  ],
+  "weak_copyleft": [
+    "EPL-1.0",
+    "LGPL-2.0",
+    "LGPL-2.1",
+	"LGPL-2.1+",
+    "LGPL-3.0",
+    "LGPL-3.0+",
+    "MPL-2.0",
+	"CDDL-1.0"
+  ],
+  "strong_copyleft": [
+    "GPL-3.0",
+    "GPL-3.0+",	
+    "GPL-2.0",
+    "GPL-2.0+",	
+    "MS-RL",
+    "ODbL-1.0",
+    "OSL-1.0",
+    "OSL-1.1",
+    "OSL-2.0",
+    "OSL-2.1",
+    "OSL-3.0",
+    "RPL-1.1",
+    "RPL-1.5"
+  ],
+  "network_copyleft": [
+    "AGPL-1.0",
+    "AGPL-3.0"
+  ]
+}

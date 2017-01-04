@@ -1,0 +1,8 @@
+# A comment
+link: (ISC OR Apache-2.0)
+
+modify: (MIT OR ISC)
+
+use: (MIT OR GPL-1.0+)
+
+link: (MIT OR ISC OR Apache-2.0)
