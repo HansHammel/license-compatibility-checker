@@ -36,7 +36,7 @@
 	"spdx"
   ],
   "license": "MIT",
-  "description": "Check npm dependencies' package.json for license compatibility (aka compliance check) based on spdx naming conventions.",
+  "description": "Check npm dependencies' package.json for license compatibility (aka compliance check) with the current project based on spdx notation and naming conventions.",
   "dependencies": {
     "spdx-correct": "^1.0.2"
   },

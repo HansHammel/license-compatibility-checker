@@ -1,5 +1,5 @@
 # license-compatibility-checker
-Check npm dependencies' package.json for license compatibility (aka compliance check) based on spdx naming conventions.
+Check npm dependencies' package.json for license compatibility (aka compliance check) with the current project based on spdx notation and naming conventions.
 
 [![NPM](https://nodei.co/npm/license-compatibility-checker.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/license-compatibility-checker/) 
 [![NPM](https://nodei.co/npm-dl/license-compatibility-checker.png?months=9&height=3)](https://nodei.co/npm/license-compatibility-checker/)
@@ -43,5 +43,15 @@ In your project folder run
 or
 
 	lcc
+	
+or (win)
 
-[![Licences](licences.svg)](licences.svg)
+	.\node_modules\.bin\lcc
+
+or (*nix)
+
+	./node_modules/.bin/lcc
+
+etc.
+	
+[![Licences](licenses.png)](licenses.svg)
