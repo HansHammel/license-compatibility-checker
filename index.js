@@ -2,6 +2,7 @@
 
 var licenseData = require('./licenses.json');
 var colors = require('colors/safe');
+var path=require('path');
 
 var licenseTypes = {
     'public_domain': 'Public Domain',
@@ -96,7 +97,7 @@ function compareLicenses(to) {
     });
 }
 
-var pkg = require('./package.json');
+var pkg = require(path.join(process.cwd(),'package.json'));
 
 
 var fs = require("fs");

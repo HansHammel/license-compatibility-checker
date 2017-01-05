@@ -1,6 +1,6 @@
 {
   "name": "license-compatibility-checker",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

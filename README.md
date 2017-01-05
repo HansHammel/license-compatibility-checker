@@ -20,7 +20,7 @@ Check npm dependencies' package.json for license compatibility (aka compliance c
 Does a simple comparison like Public Domain > Permissive > Weakly Protective > Strongly Protective > Network Protective of the primary dependencies in node_modules (no recursive search).
 Checks for unlicensed or unknown licenses.
 
-Screenshot with sample data
+Screenshot with sample data (some licenses changed for demo)
 [![Screenshot](screenshots/screen.png)](screenshots/screen.png)
 
 # Install
