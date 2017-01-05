@@ -75,7 +75,8 @@ Paths can be relative to the CWD and/or mixed Win/nix-style
 	var path=require('path');
 	lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),"node_modules"));
 
-
+ 
+ 
 ### Honorable Mention
 Based on license-compatibility ruby gem by Libraries.io
 
