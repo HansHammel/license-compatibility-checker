@@ -1,6 +1,4 @@
 dev/
-*.svg
-*.png
 
 # OS generated files
 .DS_Store

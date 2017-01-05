@@ -17,8 +17,8 @@ Check npm dependencies' package.json for license compatibility (aka compliance c
 [![david peerDependency](https://img.shields.io/david/peer/HansHammel/license-compatibility-checker.svg)](https://david-dm.org/HansHammel/license-compatibility-checker)
 
 ## This is WIP and likely to change but already useable.
-Does a simple comparison like Public Domain > Permissive > Weakly Protective > Strongly Protective > Network Protective of the primary dependencies in node_modules (no recursive search)
-Checks for unlicensed or unknown licenses
+Does a simple comparison like Public Domain > Permissive > Weakly Protective > Strongly Protective > Network Protective of the primary dependencies in node_modules (no recursive search).
+Checks for unlicensed or unknown licenses.
 
 Screenshot with sample data
 [![Screenshot](screenshots/screen.png)](screenshots/screen.png)
@@ -61,7 +61,8 @@ or (*nix)
 
 etc.
 
-#### honorable mention
+
+#### Honorable Mention
 Based on license-compatibility ruby gem by Libraries.io
 
 
