@@ -54,4 +54,4 @@ or (*nix)
 
 etc.
 	
-[![Licences](licenses.png)](licenses.png)
+[![Licences](licenses.png)](licenses.svg)
