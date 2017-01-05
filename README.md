@@ -56,7 +56,10 @@ or (*nix)
 
 etc.
 
+#### honorable mention
+Based on license-compatibility ruby gem by Libraries.io
 
-A License Overview
+
+## A License Overview
 
 [![Licences](licenses.png)](licenses.svg)
