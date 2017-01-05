@@ -38,7 +38,7 @@ npm install license-compatibility-checker --save-dev
 or
 
 ```sh
-npm install https://github.com/HansHammel/MergeGithubFork.git --save-dev
+npm install https://github.com/HansHammel/license-compatibility-checker.git --save-dev
 ```
 
 # Usage
