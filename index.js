@@ -1,39 +1,5 @@
 #!/usr/bin/env node
 
-//polyfill
-if (!Array.prototype.includes) {
-  Array.prototype.includes = function(searchElement /*, fromIndex*/) {
-    'use strict';
-    if (this == null) {
-      throw new TypeError('Array.prototype.includes called on null or undefined');
-    }
-    
-    var O = Object(this);
-    var len = parseInt(O.length, 10) || 0;
-    if (len === 0) {
-      return false;
-    }
-    var n = parseInt(arguments[1], 10) || 0;
-    var k;
-    if (n >= 0) {
-      k = n;
-    } else {
-      k = len + n;
-      if (k < 0) {k = 0;}
-    }
-    var currentElement;
-    while (k < len) {
-      currentElement = O[k];
-      if (searchElement === currentElement ||
-         (searchElement !== searchElement && currentElement !== currentElement)) { // NaN !== NaN
-        return true;
-      }
-      k++;
-    }
-    return false;
-  };
-}
-
 var licenseData = require('./licenses.json');
 var colors = require('colors/safe');
 var path=require('path');
@@ -64,15 +30,15 @@ var license_type = function(license) {
     if (!license) {
         //console.log('NO license found:', license);
         return licenseTypes.unlicensed;
-    } else if (licenseData[licenseTypes.public_domain].includes(license))
+    } else if (licenseData[licenseTypes.public_domain].indexOf(license) >= 0)
         return licenseTypes.public_domain;
-    else if (licenseData[licenseTypes.permissive].includes(license))
+    else if (licenseData[licenseTypes.permissive].indexOf(license) >= 0)
         return licenseTypes.permissive;
-    else if (licenseData[licenseTypes.weak_copyleft].includes(license))
+    else if (licenseData[licenseTypes.weak_copyleft].indexOf(license) >= 0)
         return licenseTypes.weak_copyleft;
-    else if (licenseData[licenseTypes.strong_copyleft].includes(license))
+    else if (licenseData[licenseTypes.strong_copyleft].indexOf(license) >= 0)
         return licenseTypes.strong_copyleft;
-    else if (licenseData[licenseTypes.network_copyleft].includes(license))
+    else if (licenseData[licenseTypes.network_copyleft].indexOf(license) >= 0)
         return licenseTypes.network_copyleft;
     else {
         //console.log('Unknown license type:', license);
@@ -87,15 +53,15 @@ var forward_compatiblity = function(pkgLicenseType, moduleLicenseType) {
 		case licenseTypes.unknown:
 			return false;
         case licenseTypes.public_domain:
-            return [licenseTypes.unlicensed, licenseTypes.unknown, licenseTypes.public_domain, licenseTypes.permissive, licenseTypes.weak_copyleft, licenseTypes.copyleft, licenseTypes.strong_copyleft, licenseTypes.network_copyleft].includes(pkgLicenseType);
+            return [licenseTypes.unlicensed, licenseTypes.unknown, licenseTypes.public_domain, licenseTypes.permissive, licenseTypes.weak_copyleft, licenseTypes.copyleft, licenseTypes.strong_copyleft, licenseTypes.network_copyleft].indexOf(pkgLicenseType)  >= 0;
         case licenseTypes.permissive:
-            return [licenseTypes.unlicensed, licenseTypes.permissive, licenseTypes.weak_copyleft, licenseTypes.copyleft, licenseTypes.strong_copyleft, licenseTypes.network_copyleft].includes(pkgLicenseType);
+            return [licenseTypes.unlicensed, licenseTypes.permissive, licenseTypes.weak_copyleft, licenseTypes.copyleft, licenseTypes.strong_copyleft, licenseTypes.network_copyleft].indexOf(pkgLicenseType) >= 0;
         case licenseTypes.weak_copyleft:
-            return [licenseTypes.unlicensed, licenseTypes.weak_copyleft, licenseTypes.copyleft, licenseTypes.strong_copyleft, licenseTypes.network_copyleft].includes(pkgLicenseType);
+            return [licenseTypes.unlicensed, licenseTypes.weak_copyleft, licenseTypes.copyleft, licenseTypes.strong_copyleft, licenseTypes.network_copyleft].indexOf(pkgLicenseType) >= 0;
         case licenseTypes.strong_copyleft:
-            return [licenseTypes.unlicensed, licenseTypes.strong_copyleft, licenseTypes.network_copyleft].includes(pkgLicenseType);
+            return [licenseTypes.unlicensed, licenseTypes.strong_copyleft, licenseTypes.network_copyleft].indexOf(pkgLicenseType) >= 0;
         case licenseTypes.network_copyleft:
-            return [licenseTypes.unlicensed, licenseTypes.network_copyleft].includes(pkgLicenseType);
+            return [licenseTypes.unlicensed, licenseTypes.network_copyleft].indexOf(pkgLicenseType) >= 0;
         default:
             //console.log('Unknown license',module_license,'('+moduleLicenseType+')');
             return false;
