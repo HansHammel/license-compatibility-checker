@@ -53,5 +53,8 @@ or (*nix)
 	./node_modules/.bin/lcc
 
 etc.
-	
+
+
+A License Overview
+
 [![Licences](licenses.png)](licenses.svg)
