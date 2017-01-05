@@ -43,24 +43,37 @@ npm install https://github.com/HansHammel/MergeGithubFork.git --save-dev
 
 # Usage
 
+## CLI
+
 In your project folder run
 
 	license-compatibility-checker
 	
 or
 
-	lcc
+	lcc PATH_TO_PACKAGE_JSON
 	
 or (win)
 
-	.\node_modules\.bin\lcc
+	.\node_modules\.bin\lcc ..\droppy\package.json c:/l/droppy/node_modules
 
 or (*nix)
 
-	./node_modules/.bin/lcc
+	./node_modules/.bin/lcc PATH_TO_PACKAGE_JSON PATH_TO_MODULES
 
 etc.
 
+Supports to optional parameters: 
+1. path to package json (defaults to ./package.json)
+2. path to node_modules (defaults to ./node_modules)
+
+Paths can be relative to the CWD and/or mixed Win/nix-style 
+
+## As Module
+
+	var lcc = require('license-compatibility-checker');
+	var path=require('path');
+	lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),"node_modules"));
 
 #### Honorable Mention
 Based on license-compatibility ruby gem by Libraries.io

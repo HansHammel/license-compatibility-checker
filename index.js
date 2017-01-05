@@ -4,8 +4,7 @@ var licenseData = require('./licenses.json');
 var colors = require('colors/safe');
 var path=require('path');
 var fs = require("fs");
-
-var pkg = require(path.join(process.cwd(),'package.json'));
+var os = require("os");
 
 var licenseTypes = {
     'public_domain': 'Public Domain',
@@ -68,6 +67,7 @@ var forward_compatiblity = function(pkgLicenseType, moduleLicenseType) {
     }
 };
 
+/*
 var https = require('https');
 
 function getLicenses(callback) {
@@ -86,7 +86,7 @@ function getLicenses(callback) {
         });
     });
 }
-
+*/
 
 
 function compareLicenses(to) {
@@ -101,21 +101,24 @@ function compareLicenses(to) {
 }
 
 
-foundIncompat = false;
-var noLicenseStr = colors.red('No license');
-var pkgLicense = pkg.license ? ((typeof pkg.license === 'string' || pkg.license instanceof String) ? pkg.license : pkg.license.type || pkgLicense) : pkgLicense;
-pkgLicense = pkgLicense ? pkgLicense : (pkg.licenses && pkg.licenses[0] && pkg.licenses[0].type ? ((typeof pkg.licenses[0].type === 'string' || pkg.licenses[0].type instanceof String) ? pkg.licenses[0].type : pkg.licenses.type || pkgLicense) : pkgLicense);
-var pkgLicenseType = license_type(pkgLicense);
-console.log(colors.yellow('Checking', colors.blue(pkgLicense ? pkgLicense : noLicenseStr), '(' + pkgLicenseType + ')', 'of', pkg.name + '@' + pkg.version, 'against:'));
-console.log();
-var pkgCompatiblityString = (pkgLicenseType == licenseTypes.unknown || pkgLicenseType == licenseTypes.unlicensed) ? (foundIncompat = true) && 'possibly incompatible' : 'incompatible';
+
 
 function checkProgress(progress, total, incompat){
   if (progress == total && incompat) { console.log(); console.log(colors.red('License issues found')); process.exit(1); }
 }
 
-function main() {
-    fs.readdir("./node_modules", function(err, dirs) {
+function check(pathOfPackageJson,pathOfModules) {
+    var pkg = require(pathOfPackageJson);
+	var foundIncompat = false;
+	var noLicenseStr = colors.red('No license');
+	var pkgLicense = pkg.license ? ((typeof pkg.license === 'string' || pkg.license instanceof String) ? pkg.license : pkg.license.type || pkgLicense) : pkgLicense;
+	pkgLicense = pkgLicense ? pkgLicense : (pkg.licenses && pkg.licenses[0] && pkg.licenses[0].type ? ((typeof pkg.licenses[0].type === 'string' || pkg.licenses[0].type instanceof String) ? pkg.licenses[0].type : pkg.licenses.type || pkgLicense) : pkgLicense);
+	var pkgLicenseType = license_type(pkgLicense);
+	console.log(colors.yellow('Checking', colors.blue(pkgLicense ? pkgLicense : noLicenseStr), '(' + pkgLicenseType + ')', 'of', pkg.name + '@' + pkg.version,os.EOL,'in', colors.blue(path.resolve(pathOfPackageJson)), os.EOL,'against', colors.blue(path.resolve(pathOfModules))+':'));
+	console.log();
+	var pkgCompatiblityString = (pkgLicenseType == licenseTypes.unknown || pkgLicenseType == licenseTypes.unlicensed) ? (foundIncompat = true) && 'possibly incompatible' : 'incompatible';
+
+    fs.readdir(pathOfModules, function(err, dirs) {
         if (err) {
             console.log(err);
             return;
@@ -124,7 +127,7 @@ function main() {
 		var total = dirs.length;
         dirs.forEach(function(dir) {
             if (dir.indexOf(".") !== 0) {
-                var packageJsonFile = "./node_modules/" + dir + "/package.json";
+                var packageJsonFile = path.join(pathOfModules,dir,"package.json");
                 if (fs.existsSync(packageJsonFile)) {
                     fs.readFile(packageJsonFile, function(err, data) {
                         if (err) {
@@ -151,5 +154,12 @@ function main() {
     });
 }
 
-main();
+if (!module.parent) {
+console.dir(process.argv[2]);
+  check(process.argv[2] || path.join(process.cwd(),'package.json'), process.argv[3] || path.join(process.cwd(),"node_modules"));
+} 
+else
+module.exports.check = check;
+
+
 //compareLicenses(pkg.license);
