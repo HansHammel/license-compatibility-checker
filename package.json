@@ -1,6 +1,6 @@
 {
   "name": "license-compatibility-checker",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -14,6 +14,7 @@
     "name": "Oliver Bleckmann",
     "url": "https://github.com/HansHammel"
   },
+  "preferGlobal": true,
   "bugs": {
     "url": "https://github.com/HansHammel/license-compatibility-checker/issues"
   },
