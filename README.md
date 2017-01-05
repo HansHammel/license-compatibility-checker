@@ -16,6 +16,8 @@ Check npm dependencies' package.json for license compatibility (aka compliance c
 [![david optionalDependency](https://img.shields.io/david/optional/HansHammel/license-compatibility-checker.svg)](https://david-dm.org/HansHammel/license-compatibility-checker)
 [![david peerDependency](https://img.shields.io/david/peer/HansHammel/license-compatibility-checker.svg)](https://david-dm.org/HansHammel/license-compatibility-checker)
 
+## Unfinished Work - don't use, yet!!!
+
 # Install
 
 ```sh
