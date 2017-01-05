@@ -1,12 +1,13 @@
 var licenseData = require('./licenses.json');
+var colors = require('colors/safe');
 
 var licenseTypes = {
-    'public_domain': 'public_domain',
-    'permissive': 'permissive',
-    'weak_copyleft': 'weak_copyleft',
-    'strong_copyleft': 'strong_copyleft',
-    'network_copyleft': 'network_copyleft',
-    'unknown': 'unknown',
+    'public_domain': 'Public Domain',
+    'permissive': 'Permissive',
+    'weak_copyleft': 'Weakly Protective',
+    'strong_copyleft': 'Strongly Protective',
+    'network_copyleft': 'Network Protective',
+    'unknown': 'UNKNOWN',
 	'unlicensed': 'UNLICENSED'
 };
 
@@ -18,7 +19,8 @@ var correctedLicense = function(license) {
 
 var license_type = function(license) {
     //license = license ? license.replace('+', '') : licenseTypes.unlicensed;
-	license = correctedLicense(license);
+	//gives false positives try MMIT
+	//license = correctedLicense(license);
     if (licenseData[licenseTypes.public_domain].includes(license))
         return licenseTypes.public_domain;
     else if (licenseData[licenseTypes.permissive].includes(license))
@@ -91,6 +93,12 @@ var pkg = require('./package.json');
 
 var fs = require("fs");
 
+var pkgLicense = pkg.license ? ((typeof pkg.license === 'string' || pkg.license instanceof String) ? pkg.license : pkg.license.type || pkgLicense) : pkgLicense;
+pkgLicense = pkgLicense ? pkgLicense : ( pkg.licenses && pkg.licenses[0] && pkg.licenses[0].type ? ((typeof pkg.licenses[0].type === 'string' || pkg.licenses[0].type instanceof String) ? pkg.licenses[0].type : pkg.licenses.type || pkgLicense) : pkgLicense);
+var pkgLicenseType = license_type(pkgLicense);
+console.log(colors.yellow('Checking', colors.blue(pkgLicense),'('+pkgLicenseType+')', 'of', pkg.name+'@'+pkg.version, 'against:'));
+console.log();
+
 function main() {
   fs.readdir("./node_modules", function (err, dirs) {
     if (err) {
@@ -107,7 +115,17 @@ function main() {
             }
             else {
               var modulePkg = JSON.parse(data);
-			  if (!forward_compatiblity(pkg.license,modulePkg.license)) console.log('incompatible', pkg.license +' => ' + correctedLicense(modulePkg.license));
+
+			  var moduleLicense = modulePkg.license ? ((typeof modulePkg.license === 'string' || modulePkg.license instanceof String) ? modulePkg.license : modulePkg.license.type || moduleLicense) : moduleLicense;
+			  moduleLicense = moduleLicense ? moduleLicense : ( modulePkg.licenses && modulePkg.licenses[0] && modulePkg.licenses[0].type ? ((typeof modulePkg.licenses[0].type === 'string' || modulePkg.licenses[0].type instanceof String) ? modulePkg.licenses[0].type : pkg.licenses.type || moduleLicense) : moduleLicense);
+              var moduleLicenseType = license_type(moduleLicense);			  			  
+			  if (!moduleLicense || moduleLicenseType==licenseTypes.unlicensed) console.log(modulePkg.name,'@',modulePkg.version,colors.red(moduleLicenseType));
+			  else
+			  if (moduleLicenseType==licenseTypes.unknown) console.log(modulePkg.name,'@',modulePkg.version,colors.red(moduleLicense), colors.yellow('('+moduleLicenseType+')','-',colors.red('possibly incompatible'),'with',colors.blue(pkgLicense),'('+pkgLicenseType+')'));
+			  else
+			  if (!forward_compatiblity(pkgLicense,moduleLicense)) console.log(modulePkg.name,'@',modulePkg.version, colors.red(moduleLicense), colors.yellow('('+moduleLicenseType+')','-',colors.red('incompatible'),'with',colors.blue(pkgLicense),'('+pkgLicenseType+')'));
+			  else
+			  console.log(modulePkg.name,'@',modulePkg.version, colors.green(moduleLicense), colors.yellow('('+moduleLicenseType+')','-',colors.green('compatible'),'with',colors.blue(pkgLicense),'('+pkgLicenseType+')'));
             }
           });
         }

@@ -1,11 +1,11 @@
 {
-  "public_domain": [
+  "Public Domain": [
     "CC0-1.0",
     "PDDL-1.0",
     "SAX-PD",
     "Unlicense"
   ],
-  "permissive": [
+  "Permissive": [
     "AFL-1.1",
     "AFL-1.2",
     "AFL-2.0",
@@ -24,7 +24,7 @@
 	"X11",
     "WTFPL"
   ],
-  "weak_copyleft": [
+  "Weakly Protective": [
     "EPL-1.0",
     "LGPL-2.0",
     "LGPL-2.1",
@@ -34,7 +34,7 @@
     "MPL-2.0",
 	"CDDL-1.0"
   ],
-  "strong_copyleft": [
+  "Strongly Protective": [
     "GPL-3.0",
     "GPL-3.0+",	
     "GPL-2.0",
@@ -49,7 +49,7 @@
     "RPL-1.1",
     "RPL-1.5"
   ],
-  "network_copyleft": [
+  "Network Protective": [
     "AGPL-1.0",
     "AGPL-3.0"
   ]
