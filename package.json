@@ -26,6 +26,9 @@
     "license-compatibility-checker": "bin/cli.js",
     "lcc": "bin/cli.js"
   },
+  "engines": {
+    "node": ">=0.12"
+  },
   "keywords": [
     "license",
     "licenses",
