@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
 
 var licenseData = require('./licenses.json');
 var colors = require('colors/safe');
@@ -239,6 +239,7 @@ function check(pathOfPackageJson,pathOfModules, cb) {
     });
 }
 
+/*
 if (!module.parent) {
   check(process.argv[2] || path.join(process.cwd(),'package.json'), process.argv[3] || path.join(process.cwd(),"node_modules"), function(err,passed,output){
 	  if (err) { 
@@ -256,6 +257,7 @@ if (!module.parent) {
   }); 
 } 
 else
+*/
 module.exports.check = check;
 
 

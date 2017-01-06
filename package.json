@@ -1,14 +1,17 @@
 {
   "name": "license-compatibility-checker",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node bin/cli.js",
     "test": "node test/test.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HansHammel/license-compatibility-checker.git"
+  },
+  "directories": {
+    "test": "test"
   },
   "author": {
     "name": "Oliver Bleckmann",
@@ -20,8 +23,8 @@
   },
   "homepage": "https://github.com/HansHammel/license-compatibility-checker#readme",
   "bin": {
-    "license-compatibility-checker": "index.js",
-    "lcc": "index.js"
+    "license-compatibility-checker": "bin/cli.js",
+    "lcc": "bin/cli.js"
   },
   "keywords": [
     "license",
