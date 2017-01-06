@@ -16,4 +16,5 @@
 
 *.js linguist-language=JavaScript
 .dev/* linguist-vendored
+dev/* linguist-vendored
 doc/* linguist-documentation
