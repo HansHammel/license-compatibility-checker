@@ -47,19 +47,27 @@ npm install https://github.com/HansHammel/license-compatibility-checker.git --sa
 
 In your project folder run
 
-	license-compatibility-checker
+```bash
+license-compatibility-checker
+```
 	
 or
 
-	lcc PATH_TO_PACKAGE_JSON
+```bash
+lcc PATH_TO_PACKAGE_JSON
+```
 	
 or (win)
 
-	.\node_modules\.bin\lcc ..\droppy\package.json c:/l/droppy/node_modules
+```bash
+.\node_modules\.bin\lcc ..\droppy\package.json c:/l/droppy/node_modules
+```
 
 or (*nix)
 
-	./node_modules/.bin/lcc PATH_TO_PACKAGE_JSON PATH_TO_MODULES
+```bash
+./node_modules/.bin/lcc PATH_TO_PACKAGE_JSON PATH_TO_MODULES
+```
 
 etc.
 
@@ -73,30 +81,33 @@ Paths can be relative to the CWD and/or mixed Win/nix-style
 
 ### v0.2.0
 
-	var lcc = require('license-compatibility-checker');
-	var path=require('path');
-	lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),"node_modules"),function(/*error*/ err,/*boolean*/ passed,/*string*/ output){
-	  if (err) console.log(err);
-	  else if (passed)
-	  {
-		//No license issues found
-	    console.log(output);
-	  } else
-	  { 
-	    //License issues found 
-		console.log(output);
-		//process.exit(1);
-		//or
-		//throw new Error('License issues found');
-	  }  
-	});
+```node
+var lcc = require('license-compatibility-checker');
+var path=require('path');
+lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),"node_modules"),function(/*error*/ err,/*boolean*/ passed,/*string*/ output){
+  if (err) console.log(err);
+  else if (passed)
+  {
+	//No license issues found
+	console.log(output);
+  } else
+  { 
+	//License issues found 
+	console.log(output);
+	//process.exit(1);
+	//or
+	//throw new Error('License issues found');
+  }  
+});
+```
 
 ### v0.1.1
 
-	var lcc = require('license-compatibility-checker');
-	var path=require('path');
-	lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),"node_modules"));
-
+```node
+var lcc = require('license-compatibility-checker');
+var path=require('path');
+lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),"node_modules"));
+```
  
  
 ### Honorable Mention
