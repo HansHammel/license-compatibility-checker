@@ -15,3 +15,5 @@
 *.xlsx binary
 
 *.js linguist-language=JavaScript
+dev/* linguist-vendored
+doc/* linguist-documentation
