@@ -1,10 +1,10 @@
 {
   "name": "license-compatibility-checker",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "npm start"
+    "test": "node test/test.js"
   },
   "repository": {
     "type": "git",

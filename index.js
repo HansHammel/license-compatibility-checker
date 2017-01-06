@@ -102,29 +102,30 @@ function compareLicenses(to) {
 
 
 
-
-function checkProgress(progress, total, incompat){
-  if (progress == total && incompat) { console.log(); console.log(colors.red('License issues found')); process.exit(1); }
+function checkFini(){
 }
 
-function check(pathOfPackageJson,pathOfModules) {
+
+function check(pathOfPackageJson,pathOfModules, cb) {
+	var incompat = false;
     var pkg = require(pathOfPackageJson);
-	var foundIncompat = false;
+	var output = [];
 	var noLicenseStr = colors.red('No license');
 	var pkgLicense = pkg.license ? ((typeof pkg.license === 'string' || pkg.license instanceof String) ? pkg.license : pkg.license.type || pkgLicense) : pkgLicense;
 	pkgLicense = pkgLicense ? pkgLicense : (pkg.licenses && pkg.licenses[0] && pkg.licenses[0].type ? ((typeof pkg.licenses[0].type === 'string' || pkg.licenses[0].type instanceof String) ? pkg.licenses[0].type : pkg.licenses.type || pkgLicense) : pkgLicense);
 	var pkgLicenseType = license_type(pkgLicense);
-	console.log(colors.yellow('Checking', colors.blue(pkgLicense ? pkgLicense : noLicenseStr), '(' + pkgLicenseType + ')', 'of', pkg.name + '@' + pkg.version,os.EOL,'in', colors.blue(path.resolve(pathOfPackageJson)), os.EOL,'against', colors.blue(path.resolve(pathOfModules))+':'));
-	console.log();
-	var pkgCompatiblityString = (pkgLicenseType == licenseTypes.unknown || pkgLicenseType == licenseTypes.unlicensed) ? (foundIncompat = true) && 'possibly incompatible' : 'incompatible';
+	output.push(colors.yellow('Checking', colors.blue(pkgLicense ? pkgLicense : noLicenseStr), '(' + pkgLicenseType + ')', 'of', pkg.name + '@' + pkg.version,os.EOL,'in', colors.blue(path.resolve(pathOfPackageJson)), os.EOL,'against', colors.blue(path.resolve(pathOfModules))+':'));
+	output.push('');
+	var pkgCompatiblityString = (pkgLicenseType == licenseTypes.unknown || pkgLicenseType == licenseTypes.unlicensed) ? (incompat = true) && 'possibly incompatible' : 'incompatible';
 
     fs.readdir(pathOfModules, function(err, dirs) {
         if (err) {
             console.log(err);
-            return;
+            cb(err,null,null);
         }
 		var progress = 0;
-		var total = dirs.length;
+	    var total = dirs.length;
+
         dirs.forEach(function(dir) {
             if (dir.indexOf(".") !== 0) {
                 var packageJsonFile = path.join(pathOfModules,dir,"package.json");
@@ -132,31 +133,110 @@ function check(pathOfPackageJson,pathOfModules) {
                     fs.readFile(packageJsonFile, function(err, data) {
                         if (err) {
 						    console.log(err);
-							progress++ && checkProgress(progress, total, foundIncompat);
+							progress++; 
+							if (progress == total) { 
+								if (incompat) { 
+									output.push(''); 
+									output.push(colors.red('License issues found')); 
+									output.push(''); 
+									//console.log(output.join(os.EOL));
+									cb(null,false,output.join(os.EOL)) 
+								} 
+								else { 
+									output.push(''); 
+									output.push(colors.green('No license issues found')); 
+									output.push(''); 					
+									//console.log(output.join(os.EOL));
+									cb(null,true,output.join(os.EOL)); 
+								}
+							}
+
                         } else {
                             var modulePkg = JSON.parse(data);
-
                             var moduleLicense = modulePkg.license ? ((typeof modulePkg.license === 'string' || modulePkg.license instanceof String) ? modulePkg.license : modulePkg.license.type || moduleLicense) : moduleLicense;
                             moduleLicense = moduleLicense ? moduleLicense : (modulePkg.licenses && modulePkg.licenses[0] && modulePkg.licenses[0].type ? ((typeof modulePkg.licenses[0].type === 'string' || modulePkg.licenses[0].type instanceof String) ? modulePkg.licenses[0].type : pkg.licenses.type || moduleLicense) : moduleLicense);
                             var moduleLicenseType = license_type(moduleLicense);
-                            if (moduleLicenseType == licenseTypes.unknown || moduleLicenseType == licenseTypes.unlicensed) (foundIncompat = true) && console.log(modulePkg.name, '@', modulePkg.version, colors.red(moduleLicense ? moduleLicense : noLicenseStr), colors.yellow('(' + moduleLicenseType + ')', '-', colors.red('possibly incompatible'), 'with', colors.blue(pkgLicense ? pkgLicense : noLicenseStr), '(' + pkgLicenseType + ')'));
+                            if (moduleLicenseType == licenseTypes.unknown || moduleLicenseType == licenseTypes.unlicensed) (incompat = true) && output.push(modulePkg.name + '@' + modulePkg.version + ' ' + colors.red(moduleLicense ? moduleLicense : noLicenseStr) + ' ' + colors.yellow('(' + moduleLicenseType + ') - ' + colors.red('possibly incompatible') + ' with ' + colors.blue(pkgLicense ? pkgLicense : noLicenseStr) + ' (' + pkgLicenseType + ')'));
                             else
-                            if (!forward_compatiblity(pkgLicenseType, moduleLicenseType)) (foundIncompat = true) && console.log(modulePkg.name, '@', modulePkg.version, colors.red(moduleLicense), colors.yellow('(' + moduleLicenseType + ')', '-', colors.red(pkgCompatiblityString), 'with', colors.blue(pkgLicense ? pkgLicense : noLicenseStr), '(' + pkgLicenseType + ')'));
+                            if (!forward_compatiblity(pkgLicenseType, moduleLicenseType)) (incompat = true) && output.push(modulePkg.name + '@' + modulePkg.version + ' ' + colors.red(moduleLicense) + ' ' + colors.yellow('(' + moduleLicenseType + ') - ' + colors.red(pkgCompatiblityString) + ' with ' + colors.blue(pkgLicense ? pkgLicense : noLicenseStr) + ' (' + pkgLicenseType + ')'));
                             else
-                                console.log(modulePkg.name, '@', modulePkg.version, colors.green(moduleLicense), colors.yellow('(' + moduleLicenseType + ')', '-', colors.green('compatible'), 'with', colors.blue(pkgLicense ? pkgLicense : noLicenseStr), '(' + pkgLicenseType + ')'));
-						    progress++ && checkProgress(progress, total, foundIncompat);
+                                output.push(modulePkg.name + '@' + modulePkg.version + ' ' + colors.green(moduleLicense) + ' ' + colors.yellow('(' + moduleLicenseType + ') -', colors.green('compatible') + ' with ' + colors.blue(pkgLicense ? pkgLicense : noLicenseStr) + ' (' + pkgLicenseType + ')'));
+							progress++; 
+							if (progress == total) { 
+								if (incompat) { 
+									output.push(''); 
+									output.push(colors.red('License issues found')); 
+									output.push(''); 
+									//console.log(output.join(os.EOL));
+									cb(null,false,output.join(os.EOL)) 
+								} 
+								else { 
+									output.push(''); 
+									output.push(colors.green('No license issues found')); 
+									output.push(''); 					
+									//console.log(output.join(os.EOL));
+									cb(null,true,output.join(os.EOL)); 
+								}
+							}
                         }
                     });
-                } else progress++ && checkProgress(progress, total, foundIncompat);
-            } else progress++ && checkProgress(progress, total, foundIncompat);
+                } else { 
+					progress++; 
+					if (progress == total) { 
+						if (incompat) { 
+							output.push(''); 
+							output.push(colors.red('License issues found')); 
+							output.push(''); 
+							//console.log(output.join(os.EOL));
+							cb(null,false,output.join(os.EOL)) 
+						} 
+						else { 
+							output.push(''); 
+							output.push(colors.green('No license issues found')); 
+							output.push(''); 					
+							//console.log(output.join(os.EOL));
+							cb(null,true,output.join(os.EOL)); 
+						}
+					}
+				}
+            } else { 
+				progress++; 
+				if (progress == total) { 
+					if (incompat) { 
+					    output.push(''); 
+		                output.push(colors.red('License issues found')); 
+						output.push(''); 
+						//console.log(output.join(os.EOL));
+						cb(null,false,output.join(os.EOL)) 
+					} 
+					else { 
+					    output.push(''); 
+		                output.push(colors.green('No license issues found')); 
+						output.push(''); 					
+						//console.log(output.join(os.EOL));
+						cb(null,true,output.join(os.EOL)); 
+					}
+				}
+			}
         });
-		 
     });
 }
 
 if (!module.parent) {
-console.dir(process.argv[2]);
-  check(process.argv[2] || path.join(process.cwd(),'package.json'), process.argv[3] || path.join(process.cwd(),"node_modules"));
+  check(process.argv[2] || path.join(process.cwd(),'package.json'), process.argv[3] || path.join(process.cwd(),"node_modules"), function(err,passed,output){
+	  if (err) { 
+	    console.log(err); 
+		process.exit(1)
+	  }
+	  else if (passed)
+	  {
+		console.log(output);
+	  }
+	  {
+	    console.log(output);
+	  	process.exit(1); 
+      }
+  }); 
 } 
 else
 module.exports.check = check;
