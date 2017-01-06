@@ -10,6 +10,8 @@ Check npm dependencies' package.json for license compatibility (aka compliance c
 [![npm download](https://img.shields.io/npm/dt/license-compatibility-checker.svg)](https://www.npmjs.com/package/license-compatibility-checker)
 [![Package Quality](http://npm.packagequality.com/shield/license-compatibility-checker.svg)](http://packagequality.com/#?package=license-compatibility-checker)
 [![Inline docs](http://inch-ci.org/github/HansHammel/license-compatibility-checker.svg?branch=master)](http://inch-ci.org/github/HansHammel/license-compatibility-checker)
+[![star this repo](http://githubbadges.com/star.svg?user=HansHammel&repo=license-compatibility-checker&style=flat&color=fff&background=007ec6)](https://github.com/HansHammel/license-compatibility-checker)
+[![fork this repo](http://githubbadges.com/fork.svg?user=HansHammel&repo=license-compatibility-checker&style=flat&color=fff&background=007ec6)](https://github.com/HansHammel/license-compatibility-checker/fork)
 
 [![david dependency](https://img.shields.io/david/HansHammel/license-compatibility-checker.svg)](https://david-dm.org/HansHammel/license-compatibility-checker)
 [![david devDependency](https://img.shields.io/david/dev/HansHammel/license-compatibility-checker.svg)](https://david-dm.org/HansHammel/license-compatibility-checker)
