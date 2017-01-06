@@ -83,7 +83,7 @@ Paths can be relative to the CWD and/or mixed Win/nix-style
 
 ```node
 var lcc = require('license-compatibility-checker');
-var path=require('path');
+var path = require('path');
 lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),"node_modules"),function(/*error*/ err,/*boolean*/ passed,/*string*/ output){
   if (err) console.log(err);
   else if (passed)
