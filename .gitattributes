@@ -13,3 +13,5 @@
 *.png binary
 *.jpg binary
 *.xlsx binary
+
+*.js linguist-language=JavaScript
