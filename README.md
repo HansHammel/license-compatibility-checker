@@ -81,7 +81,7 @@ Paths can be relative to the CWD and/or mixed Win/nix-style
 
 ## As Module
 
-### v0.2.0
+### v0.2.x
 
 ```node
 var lcc = require('license-compatibility-checker');
