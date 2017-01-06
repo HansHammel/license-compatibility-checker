@@ -105,7 +105,24 @@ function compareLicenses(to) {
 function checkFini(){
 }
 
+/**
+ * Callback for license check.
+ *
+ * @callback licenseCheckCallback
+ * @param {String} err - Information about the error.
+ * @param {Boolean} passed - True if there were no license issues, otherwise false.
+ * @param {String} output - Output to be printed to Console (including colors).
+ */
 
+/**
+ * Check for licenses issues of the given project.json compared (flat) to a folder of node_modules
+ *
+ * @param  {string} pathOfPackageJson - The path of the package.json to check against
+ * @param  {string} pathOfModules - The path of the node modules to check against e.g. ./node_modules
+ * @param  {licenseCheckCallback} callback - A callback to run.
+ *
+ * @api public
+ */
 function check(pathOfPackageJson,pathOfModules, cb) {
 	var incompat = false;
     var pkg = require(pathOfPackageJson);
