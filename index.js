@@ -98,6 +98,7 @@ function getLicenses(callback) {
 */
 
 /** @private */
+/*
 function compareLicenses(to) {
     getLicenses(function(licenses) {
         licenses.forEach(function(element, index, array) {
@@ -108,7 +109,8 @@ function compareLicenses(to) {
         });
     });
 }
-
+*/
+//compareLicenses(pkg.license);
 
 /**
  * Callback for license check.
@@ -121,6 +123,26 @@ function compareLicenses(to) {
 
 /**
  * Check for licenses issues of the given project.json compared (flat) to a folder of node_modules
+ * @example
+ * <code>
+ * var lcc = require('license-compatibility-checker');
+ * var path = require('path');
+ * lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),"node_modules"), function(err, passed, output){
+ *   if (err) console.log(err);
+ *   else if (passed)
+ *   {
+ * 	   //No license issues found
+ * 	   console.log(output);
+ *   } else
+ *   { 
+ * 	   //License issues found 
+ * 	   console.log(output);
+ * 	   //process.exit(1);
+ * 	   //or
+ * 	   //throw new Error('License issues found');
+ *   }  
+ * }); 
+ * </code>
  *
  * @param  {string} pathOfPackageJson - The path of the package.json to check against
  * @param  {string} pathOfModules - The path of the node modules to check against e.g. ./node_modules
@@ -266,4 +288,3 @@ else
 module.exports.check = check;
 
 
-//compareLicenses(pkg.license);
