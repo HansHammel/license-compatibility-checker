@@ -40,7 +40,7 @@ try {
                     frindlyName: el.replace('+', 'plus').toLowerCase(),
                     folder: path.join(__dirname, 'node_modules', el.replace('+', 'plus').toLowerCase()),
                     type: licenseType
-                }
+                };
                 licenses.push(licenseInfo);
                 try {
                     deleteFolderRecursive(licenseInfo.folder)

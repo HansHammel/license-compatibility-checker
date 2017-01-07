@@ -1,11 +1,17 @@
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 
+/** @private */
 var licenseData = require('./licenses.json');
+/** @private */
 var colors = require('colors/safe');
+/** @private */
 var path=require('path');
+/** @private */
 var fs = require("fs");
+/** @private */
 var os = require("os");
 
+/** @private */
 var licenseTypes = {
     'public_domain': 'Public Domain',
     'permissive': 'Permissive',
@@ -18,10 +24,12 @@ var licenseTypes = {
 
 //var correct = require('spdx-correct');
 
+/** @private */
 var correctedLicense = function(license) {
     return license ? correct(license) : licenseTypes.unlicensed;
-}
+};
 
+/** @private */
 var license_type = function(license) {
     //license = license ? license.replace('+', '') : licenseTypes.unlicensed;
     //gives false positives try MMIT
@@ -45,6 +53,7 @@ var license_type = function(license) {
     }
 };
 
+/** @private */
 var forward_compatiblity = function(pkgLicenseType, moduleLicenseType) {
     switch (moduleLicenseType) {
 		case licenseTypes.unlicensed:
@@ -88,7 +97,7 @@ function getLicenses(callback) {
 }
 */
 
-
+/** @private */
 function compareLicenses(to) {
     getLicenses(function(licenses) {
         licenses.forEach(function(element, index, array) {
@@ -100,10 +109,6 @@ function compareLicenses(to) {
     });
 }
 
-
-
-function checkFini(){
-}
 
 /**
  * Callback for license check.
@@ -119,9 +124,9 @@ function checkFini(){
  *
  * @param  {string} pathOfPackageJson - The path of the package.json to check against
  * @param  {string} pathOfModules - The path of the node modules to check against e.g. ./node_modules
- * @param  {licenseCheckCallback} callback - A callback to run.
+ * @param  {licenseCheckCallback} cb - Callback for license check.
  *
- * @api public
+ * @public
  */
 function check(pathOfPackageJson,pathOfModules, cb) {
 	var incompat = false;

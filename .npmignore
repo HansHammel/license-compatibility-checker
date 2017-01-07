@@ -90,7 +90,6 @@ example/
 #dev files
 #.npmrc
 #build tools
-.travis.yml
 .jenkins.yml
 .codeclimate.yml
 circle.yml
