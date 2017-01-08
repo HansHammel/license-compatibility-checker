@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>dev/licensing/index.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-license-compatibility-checker.html">license-compatibility-checker</a><ul class='methods'><li data-type='method'><a href="module-license-compatibility-checker.html#~check">check</a></li><li data-type='method'><a href="module-license-compatibility-checker.html#~check">check</a></li><li data-type='method'><a href="module-license-compatibility-checker.html#~checkSync">checkSync</a></li><li data-type='method'><a href="module-license-compatibility-checker.html#~checkSync">checkSync</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#next">next</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">dev/licensing/index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>#!/usr/bin/env node
+'use strict';
+
+var Shrinkwrap = require('shrinkwrap')
+  , licenses = require('licenses')
+  , argh = require('argh').argv
+  , path = require('path')
+  , fs = require('fs');
+
+argh.package = argh.package || path.join(process.cwd(), 'package.json');
+argh.registry = argh.registry || 'http://registry.npmjs.org/';
+
+//
+// Invalid arguments, output help
+//
+if (!fs.existsSync(argh.package) &amp;&amp; !argh.name || argh.help) {
+  console.log();
+  console.log('  licensing [flags]');
+  console.log();
+  console.log('  --package [dir]    : The location of the package.json to use');
+  console.log('  --registry [url]   : The registry we should use to resolve packages');
+  console.log('  --name [name]      : Discover the footprint of a module instead');
+  console.log('  --devDependencies  : Also include all devDependencies');
+  console.log('  --help             : Display this message');
+  console.log('');
+  console.log('example:');
+  console.log('  licensing --name primus');
+  console.log();
+  process.exit(1);
+}
+
+//
+// Setup our shrinkwrap module so we can spider all dependencies.
+//
+var shrinkwrap = new Shrinkwrap({
+  registry: argh.registry,
+  production: !argh.devDependencies
+});
+
+console.log('');
+console.log('Resolving dependencies, this might take a while');
+console.log('');
+
+if (argh.name) licenses(argh.name, function (err, licenses) {
+  if (err) {
+    console.log('');
+    console.log('Failed to correctly resolve the licensing information');
+    console.log('Received the following error:');
+    console.log('');
+    console.log('  ', err.message);
+    console.log('');
+    return process.exit(1);
+  }
+
+  console.log(argh.name, 'is licensed as:', (licenses || []).join(','));
+  console.log('');
+
+  shrinkwrap.get(argh.name, next);
+}); else shrinkwrap.resolve(require(argh.package), next);
+
+/**
+ * Output the results.
+ *
+ * @param {Error} err A critical error has occured, we couldn't continue
+ * @param {Object} dependend all the sub dependencies.
+ * @api private
+ */
+function next(err, dependend) {
+  if (err) {
+    console.log('Failed to correctly resolve the licensing information');
+    console.log('Received the following error:');
+    console.log('');
+    console.log('  ', err.message);
+    console.log('');
+    return process.exit(1);
+  }
+
+  var keys = Object.keys(dependend);
+
+  if (keys.length) {
+    console.log('Licenses information:');
+    console.log('');
+  }
+
+  //
+  // Output licensing information.
+  //
+  keys.forEach(function each(key) {
+    var pkg = dependend[key]
+      , padding = (new Array(50)).join(' ').slice(key.length);
+
+    console.log(key + padding +': '+ (
+      dependend[key].licenses
+      ?  dependend[key].licenses.join(', ')
+      : 'No license detected'
+    ));
+  });
+
+  console.log('');
+  console.log('Found a module that is incorrectly or not detected at all but does');
+  console.log('have a valid license? Please report this at:');
+  console.log('');
+  console.log('https://github.com/3rd-Eden/licenses/issues/new');
+  console.log('');
+  console.log('Which is the library that does the actual parsing and detection of');
+  console.log('the license so we can improve it\'s parsing algorithm and yield');
+  console.log('better results.');
+  console.log('');
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Jan 08 2017 02:40:03 GMT+0100 (Mitteleuropäische Zeit) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

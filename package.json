@@ -1,10 +1,11 @@
 {
   "name": "license-compatibility-checker",
   "version": "0.2.3",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "start": "node bin/cli.js",
-    "test": "node test/test.js"
+    "test": "node test/test.js",
+	"docdash": "node ./node_modules/jsdoc/jsdoc.js -c .jsdocrc -t ./node_modules/docdash -R README.md -r ./lib"
   },
   "repository": {
     "type": "git",
@@ -48,5 +49,8 @@
   "dependencies": {
     "colors": "^1.1.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "docdash": "^0.4.0",
+    "jsdoc": "^3.4.3"
+  }
 }

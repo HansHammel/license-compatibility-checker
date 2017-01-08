@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var path=require('path');
-var lcc = require('../');
+var lcc = require('../lib');
 if (!module.parent) {
   lcc.check(process.argv[2] || path.join(process.cwd(),'package.json'), process.argv[3] || path.join(process.cwd(),"node_modules"), function(err,passed,output){
 	  if (err) { 

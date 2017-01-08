@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-license-compatibility-checker.html">license-compatibility-checker</a><ul class='methods'><li data-type='method'><a href="module-license-compatibility-checker.html#~check">check</a></li><li data-type='method'><a href="module-license-compatibility-checker.html#~check">check</a></li><li data-type='method'><a href="module-license-compatibility-checker.html#~checkSync">checkSync</a></li><li data-type='method'><a href="module-license-compatibility-checker.html#~checkSync">checkSync</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>license-compatibility-checker</h1><p>Check npm dependencies' package.json for license compatibility (aka compliance check) with the current project based on spdx notation and naming conventions.</p>
+<p><a href="https://nodei.co/npm/license-compatibility-checker/"><img src="https://nodei.co/npm/license-compatibility-checker.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM"></a> 
+<a href="https://nodei.co/npm/license-compatibility-checker/"><img src="https://nodei.co/npm-dl/license-compatibility-checker.png?months=9&amp;height=3" alt="NPM"></a></p>
+<p><a href="https://www.npmjs.com/package/license-compatibility-checker"><img src="https://img.shields.io/npm/v/license-compatibility-checker.svg" alt="npm version"></a>
+<a href="https://www.npmjs.com/package/license-compatibility-checker"><img src="https://img.shields.io/npm/l/license-compatibility-checker.svg" alt="npm license"></a>
+<a href="https://www.npmjs.com/package/license-compatibility-checker"><img src="https://img.shields.io/npm/dm/license-compatibility-checker.svg" alt="npm download"></a>
+<a href="https://www.npmjs.com/package/license-compatibility-checker"><img src="https://img.shields.io/npm/dt/license-compatibility-checker.svg" alt="npm download"></a>
+<a href="http://packagequality.com/#?package=license-compatibility-checker"><img src="http://npm.packagequality.com/shield/license-compatibility-checker.svg" alt="Package Quality"></a>
+<a href="http://inch-ci.org/github/HansHammel/license-compatibility-checker"><img src="http://inch-ci.org/github/HansHammel/license-compatibility-checker.svg?branch=master" alt="Inline docs"></a>
+<a href="https://github.com/HansHammel/license-compatibility-checker"><img src="http://githubbadges.com/star.svg?user=HansHammel&amp;repo=license-compatibility-checker&amp;style=flat&amp;color=fff&amp;background=007ec6" alt="star this repo"></a>
+<a href="https://github.com/HansHammel/license-compatibility-checker/fork"><img src="http://githubbadges.com/fork.svg?user=HansHammel&amp;repo=license-compatibility-checker&amp;style=flat&amp;color=fff&amp;background=007ec6" alt="fork this repo"></a></p>
+<p><a href="https://david-dm.org/HansHammel/license-compatibility-checker"><img src="https://img.shields.io/david/HansHammel/license-compatibility-checker.svg" alt="david dependency"></a>
+<a href="https://david-dm.org/HansHammel/license-compatibility-checker"><img src="https://img.shields.io/david/dev/HansHammel/license-compatibility-checker.svg" alt="david devDependency"></a>
+<a href="https://david-dm.org/HansHammel/license-compatibility-checker"><img src="https://img.shields.io/david/optional/HansHammel/license-compatibility-checker.svg" alt="david optionalDependency"></a>
+<a href="https://david-dm.org/HansHammel/license-compatibility-checker"><img src="https://img.shields.io/david/peer/HansHammel/license-compatibility-checker.svg" alt="david peerDependency"></a></p>
+<h2>This is WIP and likely to change but already useable.</h2><p>Does a simple comparison like Public Domain &gt; Permissive &gt; Weakly Protective &gt; Strongly Protective &gt; Network Protective of the primary dependencies in node_modules (no recursive search).
+Checks for unlicensed or unknown licenses.</p>
+<p>Screenshot with sample data (some licenses changed for demo)
+<a href="screenshots/screen.png"><img src="screenshots/screen.png" alt="Screenshot"></a></p>
+<h1>Install</h1><pre class="prettyprint source lang-sh"><code>npm install license-compatibility-checker -g</code></pre><p>or better</p>
+<pre class="prettyprint source lang-sh"><code>npm install license-compatibility-checker --save-dev</code></pre><p>or</p>
+<pre class="prettyprint source lang-sh"><code>npm install https://github.com/HansHammel/license-compatibility-checker.git --save-dev</code></pre><h1>Usage</h1><h2>CLI</h2><p>In your project folder run</p>
+<pre class="prettyprint source lang-bash"><code>license-compatibility-checker</code></pre><p>or</p>
+<pre class="prettyprint source lang-bash"><code>lcc PATH_TO_PACKAGE_JSON</code></pre><p>or (win)</p>
+<pre class="prettyprint source lang-bash"><code>.\node_modules\.bin\lcc ..\droppy\package.json c:/l/droppy/node_modules</code></pre><p>or (*nix)</p>
+<pre class="prettyprint source lang-bash"><code>./node_modules/.bin/lcc PATH_TO_PACKAGE_JSON PATH_TO_MODULES</code></pre><p>etc.</p>
+<p>Supports to optional parameters: </p>
+<ol>
+<li>path to package json (defaults to ./package.json)</li>
+<li>path to node_modules (defaults to ./node_modules)</li>
+</ol>
+<p>Paths can be relative to the CWD and/or mixed Win/nix-style </p>
+<h2>As Module</h2><h3>v0.2.x</h3><pre class="prettyprint source lang-node"><code>var lcc = require('license-compatibility-checker');
+var path = require('path');
+lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),&quot;node_modules&quot;),function(/*error*/ err,/*boolean*/ passed,/*string*/ output){
+  if (err) console.log(err);
+  else if (passed)
+  {
+    //No license issues found
+    console.log(output);
+  } else
+  { 
+    //License issues found 
+    console.log(output);
+    //process.exit(1);
+    //or
+    //throw new Error('License issues found');
+  }  
+});</code></pre><h3>v0.1.1</h3><pre class="prettyprint source lang-node"><code>var lcc = require('license-compatibility-checker');
+var path=require('path');
+lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),&quot;node_modules&quot;));</code></pre><h3>Honorable Mention</h3><p>Based on license-compatibility ruby gem by Libraries.io</p>
+<h2>A License Overview</h2><p><a href="licenses.svg"><img src="licenses.png" alt="Licences"></a></p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Jan 08 2017 02:46:03 GMT+0100 (Mitteleuropäische Zeit) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -2,7 +2,7 @@ var licenseFile = require('../licenses.json');
 var pkg = require('./package.json');
 var fs = require('fs');
 var path = require('path');
-var lcc = require('../');
+var lcc = require('../lib');
 
 licenseFile["Unknown"] = ['proprietary'];
 licenseFile["Unlicensed"] = [];

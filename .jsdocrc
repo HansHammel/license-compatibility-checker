@@ -1,0 +1,35 @@
+{
+    "tags": {
+        "allowUnknownTags": false
+    },
+    "source": {
+        "include": "./",
+        "includePattern": ".+\\.(es6)|(js(doc|x)?)$",
+        "_comment_":"exclude _ and . files and folders and some other folders in subdirs",
+        "excludePattern": "((^|\\/|\\\\)(_|\\.))|(.+(\\/|\\\\)(todo|exe|dev|backup|coverage|prequisits|todo|node_modules|doc|docs|test|tests|spec|specs|)(\\/|\\\\).+)",
+        "exclude": [
+            "node_modules",
+			"dev",
+            "plugins",
+            "prequisits"
+        ]
+    },
+    "plugins": [
+        "plugins/markdown"
+    ],
+    "opts": {
+        "template": "node_modules/docdash",
+        "encoding": "utf8",
+        "destination": "docs/",
+        "recurse": true,
+        "verbose": true
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    },
+    "docdash": {
+        "static": true,
+        "sort": true
+    }
+}
