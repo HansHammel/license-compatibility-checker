@@ -141,9 +141,9 @@ function compareLicenses(to) {
  * });
  * </code>
  *
- * @param  {string} pathOfPackageJson - The path of the package.json to check against
- * @param  {string} pathOfModules - The path of the node modules to check against e.g. ./node_modules
- * @param  {licenseCheckCallback} cb - Callback for license check.
+ * @param {string} pathOfPackageJson - The path of the package.json to check against
+ * @param {string} pathOfModules - The path of the node modules to check against e.g. ./node_modules
+ * @param {licenseCheckCallback} cb - Callback for license check.
  *
  * @public
  */
@@ -280,9 +280,9 @@ function check(pathOfPackageJson,pathOfModules, cb) {
 /** 
  * @class LicenseCheck
  * @type {Object}
- * @property {Error} the Error object if any.
- * @property {Boolean} ture if there were no license issues, flase otherwise.
- * @property {output} The resulting output (including colors) to be printed with console.log.
+ * @property {Error} err - the Error object if any.
+ * @property {Boolean} passed - ture if there were no license issues, flase otherwise.
+ * @property {output} output - The resulting output (including colors) to be printed with console.log.
  */
 function LicenseCheck(err, passed, output) {
   return {
