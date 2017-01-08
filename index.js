@@ -284,6 +284,7 @@ function check(pathOfPackageJson,pathOfModules, cb) {
  * @property {Boolean} passed - ture if there were no license issues, flase otherwise.
  * @property {output} output - The resulting output (including colors) to be printed with console.log.
  */
+ /*
 function LicenseCheck(err, passed, output) {
   return {
         err: err,
@@ -291,6 +292,15 @@ function LicenseCheck(err, passed, output) {
 		output: output
     };
 }
+*/
+
+/** 
+ * @typedef licenseCheck
+ * @type {Object}
+ * @property {Error} err - the Error object if any.
+ * @property {Boolean} passed - ture if there were no license issues, flase otherwise.
+ * @property {output} output - The resulting output (including colors) to be printed with console.log.
+*/
 
 /**
  * Check for licenses issues of the given project.json compared (flat) to a folder of node_modules
@@ -304,7 +314,7 @@ function LicenseCheck(err, passed, output) {
  *
  * @param  {string} pathOfPackageJson - The path of the package.json to check against
  * @param  {string} pathOfModules - The path of the node modules to check against e.g. ./node_modules
- * @returns {LicenseCheck} Returns an LicenseCheck Object
+ * @returns {licenseCheck} Returns a licenseCheck Object
  *
  * @public
  */
