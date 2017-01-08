@@ -4,6 +4,9 @@ var fs = require('fs');
 var path = require('path');
 var lcc = require('../');
 
+licenseFile["Unknown"] = ['proprietary'];
+licenseFile["Unlicensed"] = [];
+
 var deleteFolderRecursive = function(path) {
     if (fs.existsSync(path)) {
         fs.readdirSync(path).forEach(function(file, index) {
@@ -23,14 +26,16 @@ try {
     try {
         deleteFolderRecursive(path.join(__dirname, 'node_modules'))
     } catch (err) {
-        console.log('Cannot delete folder', path.join(__dirname, 'node_modules'), err);
-        process.exit(1);
+        console.log('Cannot delete folder', path.join(__dirname, 'node_modules'));
+        throw(err);
+        //process.exit(1);
     }
     try {
         fs.mkdirSync(path.join(__dirname, 'node_modules'))
     } catch (err) {
-        console.log('Cannot create folder', path.join(__dirname, 'node_modules'), err);
-        process.exit(1);
+        console.log('Cannot create folder', path.join(__dirname, 'node_modules'));
+        throw(err)
+        //process.exit(1);
     }
     for (var licenseType in licenseFile) {
         if (licenseFile.hasOwnProperty(licenseType)) {
@@ -45,28 +50,36 @@ try {
                 try {
                     deleteFolderRecursive(licenseInfo.folder)
                 } catch (err) {
-                    console.log('Cannot delete folder', licenseInfo.folder, err);
-                    process.exit(1);
+                    console.log('Cannot delete folder', licenseInfo.folder);
+                    throw(err);
+                    //process.exit(1);
                 }
                 try {
                     fs.mkdirSync(licenseInfo.folder)
                 } catch (err) {
-                    console.log('Cannot create folder', licenseInfo.folder, err);
-                    process.exit(1);
+                    console.log('Cannot create folder', licenseInfo.folder);
+                    throw(err);
+                    //process.exit(1);
                 }
                 if (fs.existsSync(licenseInfo.folder)) {
-                    fs.writeFileSync(path.join(licenseInfo.folder, 'package.json'), JSON.stringify({
-                        "name": licenseInfo.frindlyName,
-                        "version": "1.0.0",
-                        "description": "",
-                        "main": "index.js",
-                        "scripts": {
-                            "test": "echo \"Error: no test specified\" && exit 1"
-                        },
-                        "author": "",
-                        "license": licenseInfo.name
-                    }));
-                    //TODO: catch error
+                    try {
+                        fs.writeFileSync(path.join(licenseInfo.folder, 'package.json'), JSON.stringify({
+                            "name": licenseInfo.frindlyName,
+                            "version": "1.0.0",
+                            "description": "",
+                            "main": "index.js",
+                            "scripts": {
+                                "test": "echo \"Error: no test specified\" && exit 1"
+                            },
+                            "author": "",
+                            "license": licenseInfo.name
+                        }));
+                        //TODO: catch error
+                    } catch(err) {
+                        console.log('Cannot write file', path.join(licenseInfo.folder, 'package.json'));
+                        throw(err);
+                        process.exit(1);
+                    }
                 } else {
                     console.log('Cannot find folder', licenseInfo.folder);
                     process.exit(1);
@@ -79,7 +92,8 @@ try {
         //var licenseInfo = { name: el, frindlyName: el.replace('+','plus').toLowerCase(),folder: path.join(__dirname,'node_modules',el.replace('+','plus').toLowerCase()), type: licenseType }
         pkg.license = licenseInfo.name;
         fs.writeFileSync(path.join(__dirname, 'package.json'), JSON.stringify(pkg));
-        lcc.check(path.join(__dirname, 'package.json'), path.join(__dirname, "node_modules"), function(err, passed, output) {
+        /*
+		lcc.check(path.join(__dirname, 'package.json'), path.join(__dirname, "node_modules"), function(err, passed, output) {
             if (err) console.log(err);
             else if (passed) {
                 //No license issues found			
@@ -90,11 +104,15 @@ try {
                 //throw new Error('License issues found');
             }
         });
+		*/
+		//console.log(lcc.checkSync(path.join(__dirname, 'package.json'), path.join(__dirname, "node_modules")).result);
+		
         //if (!lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),"node_modules"))) process.exit(1);
     });
-    fs.writeFileSync(path.join(__dirname, 'package.json'), JSON.stringify(pkg));
+    fs.writeFileSync(path.join(__dirname, 'package.json'), JSON.stringify(require('./package_restore.json')));
+	
 } catch (err) {
     console.error(err);
-    fs.writeFileSync(path.join(__dirname, 'package.json'), JSON.stringify(pkg));
+    fs.writeFileSync(path.join(__dirname, 'package.json'), JSON.stringify(require('./package_restore.json')));
     process.exit(1);
 }
