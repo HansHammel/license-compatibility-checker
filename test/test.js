@@ -26,15 +26,13 @@ try {
     try {
         deleteFolderRecursive(path.join(__dirname, 'node_modules'))
     } catch (err) {
-        console.log('Cannot delete folder', path.join(__dirname, 'node_modules'));
-        throw(err);
+        throw new Error('Cannot delete folder', path.join(__dirname, 'node_modules'));
         //process.exit(1);
     }
     try {
         fs.mkdirSync(path.join(__dirname, 'node_modules'))
     } catch (err) {
-        console.log('Cannot create folder', path.join(__dirname, 'node_modules'));
-        throw(err)
+        throw new Error('Cannot create folder', path.join(__dirname, 'node_modules'));
         //process.exit(1);
     }
     for (var licenseType in licenseFile) {
@@ -50,8 +48,7 @@ try {
                 try {
                     deleteFolderRecursive(licenseInfo.folder)
                 } catch (err) {
-                    console.log('Cannot delete folder', licenseInfo.folder);
-                    throw(err);
+                    throw new Error('Cannot delete folder', licenseInfo.folder);
                     //process.exit(1);
                 }
                 try {
@@ -76,13 +73,12 @@ try {
                         }));
                         //TODO: catch error
                     } catch(err) {
-                        console.log('Cannot write file', path.join(licenseInfo.folder, 'package.json'));
-                        throw(err);
+                        throw new Error('Cannot write file', path.join(licenseInfo.folder, 'package.json'));
                         process.exit(1);
                     }
                 } else {
-                    console.log('Cannot find folder', licenseInfo.folder);
-                    process.exit(1);
+                    throw new Error('Cannot find folder', licenseInfo.folder);
+                    //process.exit(1);
                 };
             });
         }

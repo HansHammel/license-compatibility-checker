@@ -104,6 +104,7 @@ circle.yml
 # Directories
 build/
 docs/
+doc/
 examples/
 reports/
 support/

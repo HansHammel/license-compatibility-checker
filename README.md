@@ -110,7 +110,10 @@ var lcc = require('license-compatibility-checker');
 var path=require('path');
 lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),"node_modules"));
 ```
+
+ ## Legal notice
  
+ use without warranty
  
 ### Honorable Mention
 Based on license-compatibility ruby gem by Libraries.io
