@@ -1,4 +1,4 @@
-var licenseFile = require('../licenses.json');
+var licenseFile = require('../lib/licenses.json');
 var pkg = require('./package.json');
 var fs = require('fs');
 var path = require('path');
@@ -26,13 +26,13 @@ try {
     try {
         deleteFolderRecursive(path.join(__dirname, 'node_modules'))
     } catch (err) {
-        throw new Error('Cannot delete folder', path.join(__dirname, 'node_modules'));
+        throw new Error('Cannot delete folder ' + path.join(__dirname, 'node_modules'));
         //process.exit(1);
     }
     try {
         fs.mkdirSync(path.join(__dirname, 'node_modules'))
     } catch (err) {
-        throw new Error('Cannot create folder', path.join(__dirname, 'node_modules'));
+        throw new Error('Cannot create folder ' + path.join(__dirname, 'node_modules'));
         //process.exit(1);
     }
     for (var licenseType in licenseFile) {
@@ -48,7 +48,7 @@ try {
                 try {
                     deleteFolderRecursive(licenseInfo.folder)
                 } catch (err) {
-                    throw new Error('Cannot delete folder', licenseInfo.folder);
+                    throw new Error('Cannot delete folder ' + licenseInfo.folder);
                     //process.exit(1);
                 }
                 try {
@@ -73,13 +73,13 @@ try {
                         }));
                         //TODO: catch error
                     } catch(err) {
-                        throw new Error('Cannot write file', path.join(licenseInfo.folder, 'package.json'));
-                        process.exit(1);
+                        throw new Error('Cannot write file ' + path.join(licenseInfo.folder, 'package.json'));
+                        //process.exit(1);
                     }
                 } else {
-                    throw new Error('Cannot find folder', licenseInfo.folder);
+                    throw new Error('Cannot find folder ' + licenseInfo.folder);
                     //process.exit(1);
-                };
+                }
             });
         }
     }
