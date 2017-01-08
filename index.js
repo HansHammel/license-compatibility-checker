@@ -1,4 +1,5 @@
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @module license-compatibility-checker */
 
 var licenseData = require('./licenses.json');
 var colors = require('colors/safe');
@@ -303,7 +304,7 @@ function LicenseCheck(err, passed, output) {
 */
 
 /**
- * Check for licenses issues of the given project.json compared (flat) to a folder of node_modules
+ * Check for licenses issues of the given project.json compared (flat) to a folder of node_modules. Synchronous version.
  * @example
  * <code>
  * var lcc = require('license-compatibility-checker');
@@ -314,7 +315,7 @@ function LicenseCheck(err, passed, output) {
  *
  * @param  {string} pathOfPackageJson - The path of the package.json to check against
  * @param  {string} pathOfModules - The path of the node modules to check against e.g. ./node_modules
- * @returns {{err: Rrror, passed: Boolean, output: string}} Returns a custom Object
+ * @returns {licenseCheck} Returns a licenseCheck Object
  *
  * @public
  */
@@ -326,7 +327,13 @@ function checkSync(pathOfPackageJson, pathOfModules) {
 	return x;
 }
 
-module.exports.check = check;
-module.exports.checkSync = checkSync;
+module.exports = {
+
+    /** Check for licenses issues of the given project.json compared (flat) to a folder of node_modules. */
+	check: check,
+	
+    /** Check for licenses issues of the given project.json compared (flat) to a folder of node_modules. Synchronous version. */
+	checkSync: checkSync
+}
 
 
