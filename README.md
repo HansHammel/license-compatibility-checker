@@ -111,7 +111,7 @@ var path=require('path');
 lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),"node_modules"));
 ```
 
- ## Legal notice
+## Legal notice
  
  use without warranty
  
