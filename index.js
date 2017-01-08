@@ -314,7 +314,7 @@ function LicenseCheck(err, passed, output) {
  *
  * @param  {string} pathOfPackageJson - The path of the package.json to check against
  * @param  {string} pathOfModules - The path of the node modules to check against e.g. ./node_modules
- * @returns {licenseCheck} Returns a licenseCheck Object
+ * @returns {{err: Rrror, passed: Boolean, output: string}} Returns a custom Object
  *
  * @public
  */
