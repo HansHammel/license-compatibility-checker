@@ -1,6 +1,6 @@
 {
   "name": "license-compatibility-checker",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "main": "lib/index.js",
   "scripts": {
     "start": "node bin/cli.js",
