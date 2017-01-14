@@ -4,6 +4,7 @@ Check npm dependencies' package.json for license compatibility (aka compliance c
 [![NPM](https://nodei.co/npm/license-compatibility-checker.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/license-compatibility-checker/) 
 [![NPM](https://nodei.co/npm-dl/license-compatibility-checker.png?months=9&height=3)](https://nodei.co/npm/license-compatibility-checker/)
 
+[![Build Status](https://travis-ci.org/HansHammel/license-compatibility-checker.svg?branch=master)](https://travis-ci.org/HansHammel/license-compatibility-checker)
 [![npm version](https://img.shields.io/npm/v/license-compatibility-checker.svg)](https://www.npmjs.com/package/license-compatibility-checker)
 [![npm license](https://img.shields.io/npm/l/license-compatibility-checker.svg)](https://www.npmjs.com/package/license-compatibility-checker)
 [![npm download](https://img.shields.io/npm/dm/license-compatibility-checker.svg)](https://www.npmjs.com/package/license-compatibility-checker)
