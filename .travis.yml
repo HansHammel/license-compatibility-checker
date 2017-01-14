@@ -1,0 +1,29 @@
+language: node_js
+
+sudo: false
+
+branches:
+  only:
+    - master
+
+node_js:
+  - '4'
+  - '5'
+  - '6'
+  - '7'
+
+os:
+  - linux
+  - osx
+ 
+env:
+  - NODE_ENV=testing
+
+cache:
+  directories:
+    - $HOME/.npm
+    - ~/.npm
+    - ~/.yarn-cache
+    - travis_phantomjs
+    - node_modules	
+  
