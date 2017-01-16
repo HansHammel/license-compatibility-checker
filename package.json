@@ -1,11 +1,11 @@
 {
   "name": "license-compatibility-checker",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "lib/index.js",
   "scripts": {
     "start": "node bin/cli.js",
     "test": "node test/test.js",
-	"docdash": "node ./node_modules/jsdoc/jsdoc.js -c .jsdocrc -t ./node_modules/docdash -R README.md -r ./lib"
+    "docdash": "node ./node_modules/jsdoc/jsdoc.js -c .jsdocrc -t ./node_modules/docdash -R README.md -r ./lib"
   },
   "repository": {
     "type": "git",
@@ -47,7 +47,8 @@
   "license": "MIT",
   "description": "Check npm dependencies' package.json for license compatibility (aka compliance check) with the current project based on spdx notation and naming conventions.",
   "dependencies": {
-    "colors": "^1.1.2"
+    "colors": "^1.1.2",
+    "update-notifier": "^1.0.3"
   },
   "devDependencies": {
     "docdash": "^0.4.0",
