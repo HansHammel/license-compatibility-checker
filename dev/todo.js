@@ -1,16 +1,16 @@
-var parse = require('spdx-expression-parse')
+var parse = require('spdx-expression-parse');
 var equal = require('deep-equal');
 require('spdx-license-ids').forEach(function (id) {
   equal(parse(id), {license: id})
-})
+});
 
 var correct = require('spdx-correct');
-correct('mit')
+correct('mit');
 
 var valid = require('validate-npm-package-license');
 
 var PJV=require('package-json-validator').PJV;
-PJV.validate(data, spec, options)
+PJV.validate(data, spec, options);
 
 var pj = "./package.json";
 

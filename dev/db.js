@@ -5,11 +5,11 @@
         console.save = function(data, filename) {
 
             if (!data) {
-                console.error('Console.save: No data')
+                console.error('Console.save: No data');
                 return;
             }
 
-            if (!filename) filename = 'console.json'
+            if (!filename) filename = 'console.json';
 
             if (typeof data === "object") {
                 data = JSON.stringify(data, undefined, 4)
@@ -19,12 +19,12 @@
                     type: 'text/json'
                 }),
                 e = document.createEvent('MouseEvents'),
-                a = document.createElement('a')
+                a = document.createElement('a');
 
-            a.download = filename
-            a.href = window.URL.createObjectURL(blob)
-            a.dataset.downloadurl = ['text/json', a.download, a.href].join(':')
-            e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+            a.download = filename;
+            a.href = window.URL.createObjectURL(blob);
+            a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+            e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
             a.dispatchEvent(e)
         }
     }
@@ -60,11 +60,11 @@
             }
 
             return str;
-        }
+        };
         let str = Array
             .from(arguments)
-            .map(x => x.trim())
-            .filter(x => x.length)
+            .map(x => x.trim();)
+            .filter(x => x.length;)
             .join('-');
 
         if (str.length === 0) {
@@ -80,7 +80,7 @@
         return str
             .replace(/^[_.\- ]+/, '')
             .toLowerCase()
-            .replace(/[_.\- ]+(\w|$)/g, (m, p1) => p1.toUpperCase());
+            .replace(/[_.\- ]+(\w|$)/g, (m, p1) => p1.toUpperCase(););
     };
 
 	//filter function
@@ -3203,7 +3203,7 @@
     var output = [];
     for (var i1 = 0; i1 < spdxData.licenses.length; i1++) {
         for (var i2 = 0; i2 < licenseData.licenses.length; i2++) {
-            if (spdxData.licenses[i1].licenseId == licenseData.licenses[i2].licenseId || spdxData.licenses[i1].name == licenseData.licenses[i2].name) {
+            if (spdxData.licenses[i1].licenseId === licenseData.licenses[i2].licenseId || spdxData.licenses[i1].name === licenseData.licenses[i2].name) {
                 output.push($.extend(true, {}, licenseData.licenses[i2], spdxData.licenses[i1]));
             }
         }
