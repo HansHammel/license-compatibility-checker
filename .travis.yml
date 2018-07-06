@@ -27,3 +27,5 @@ cache:
     - travis_phantomjs
     - node_modules	
   
+script: npm test 
+script: lcc
