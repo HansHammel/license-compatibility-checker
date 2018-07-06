@@ -28,4 +28,5 @@ cache:
     - node_modules	
   
 script: npm test 
+script: npm i -g
 script: lcc
