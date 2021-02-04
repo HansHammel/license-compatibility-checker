@@ -82,33 +82,76 @@ try {
                 }
             });
         }
+        
     }
 
     licenses.forEach(function(licenseInfo) {
         //var licenseInfo = { name: el, frindlyName: el.replace('+','plus').toLowerCase(),folder: path.join(__dirname,'node_modules',el.replace('+','plus').toLowerCase()), type: licenseType }
         pkg.license = licenseInfo.name;
         fs.writeFileSync(path.join(__dirname, 'package.json'), JSON.stringify(pkg));
-        /*
-		lcc.check(path.join(__dirname, 'package.json'), path.join(__dirname, "node_modules"), function(err, passed, output) {
-            if (err) console.log(err);
-            else if (passed) {
-                //No license issues found			
-				console.log(output);
-            } else {
-                //License issues found'); 
-				console.log(output);
-                //throw new Error('License issues found');
-            }
-        });
-		*/
+        
+		// lcc.check(path.join(__dirname, 'package.json'), path.join(__dirname, "node_modules"), function(err, passed, output) {
+        //     if (err) console.log(err);
+        //     else if (passed) {
+        //         //No license issues found			
+		// 		console.log(output);
+        //     } else {
+        //         //License issues found'); 
+		// 		console.log(output);
+        //         //throw new Error('License issues found');
+        //     }
+        // });
+		
 		//console.log(lcc.checkSync(path.join(__dirname, 'package.json'), path.join(__dirname, "node_modules")).result);
 		
         //if (!lcc.check(path.join(process.cwd(),'package.json'), path.join(process.cwd(),"node_modules"))) process.exit(1);
     });
     fs.writeFileSync(path.join(__dirname, 'package.json'), JSON.stringify(require('./package_restore.json')));
+
+    // test case for @org scoped packages
+    try {
+        fs.mkdirSync(path.join(__dirname, 'node_modules', "@org"))
+    } catch (err) {
+        console.log('Cannot create folder', licenseInfo.folder);
+        throw(err);
+        //process.exit(1);
+    }
+    try {
+        fs.writeFileSync(path.join(__dirname, 'node_modules', "@org", 'package.json'), JSON.stringify({
+            "name": "MIT",
+            "version": "1.0.0",
+            "description": "",
+            "main": "index.js",
+            "scripts": {
+                "test": "echo \"Error: no test specified\" && exit 1"
+            },
+            "author": "",
+            "license": "MIT"
+        }));
+        //TODO: catch error
+    } catch(err) {
+        throw new Error('Cannot write file ' + path.join(__dirname, 'node_modules', "@org", 'package.json'));
+        //process.exit(1);
+    }
+
+    lcc.check(path.join(process.cwd(), 'test','package.json'), path.join(process.cwd(),'test',"node_modules"), function(err, passed, output){
+          if (err) console.log(err);
+           else if (passed)
+           {
+        	   //No license issues found
+         	   console.log(output);
+           } else
+           {
+         	   //License issues found
+         	   console.log(output);
+         	   //process.exit(1);
+         	   //or
+         	   //throw new Error('License issues found');
+           }
+         });
 	
 } catch (err) {
     console.error(err);
-    fs.writeFileSync(path.join(__dirname, 'package.json'), JSON.stringify(require('./package_restore.json')));
+    //fs.writeFileSync(path.join(__dirname, 'package.json'), JSON.stringify(require('./package_restore.json')));
     process.exit(1);
 }

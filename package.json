@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node bin/cli.js",
     "test": "node test/test.js",
+    "test2": "cd test && node test.js && node ../bin/cli.js",
     "docdash": "node ./node_modules/jsdoc/jsdoc.js -c .jsdocrc -t ./node_modules/docdash -R README.md -r ./lib"
   },
   "repository": {
