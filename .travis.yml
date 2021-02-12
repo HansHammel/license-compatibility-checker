@@ -36,4 +36,4 @@ cache:
     - node_modules
   
 script: npm test 
-script: npm install -global && cd test && npm install && lcc
+#script: npm install -global && cd test && npm install && lcc
